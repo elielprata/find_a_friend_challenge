@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { CreatePetUseCase } from './create-pet'
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-respository'
 import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
+import { ResourceNotFound } from './errors/resource-not-found'
 
 let petsRepository: InMemoryPetsRepository
 let orgsRepository: InMemoryOrgsRepository
@@ -27,9 +28,9 @@ describe('Register Use Case', () => {
     })
   })
 
-  it('should be able to create an org', async () => {
+  it('should be able to create a pet', async () => {
     const { pet } = await sut.execute({
-      name: 'Officer name',
+      name: 'Pet name',
       description: 'test description',
       orgId: 'org-01',
       energy: 4,
@@ -41,17 +42,20 @@ describe('Register Use Case', () => {
     expect(pet.id).toEqual(expect.any(String))
   })
 
-  it('should be able to create an org', async () => {
-    const { pet } = await sut.execute({
-      name: 'Officer name',
-      description: 'test description',
-      orgId: 'org-01',
-      energy: 4,
-      space: 'large',
-      size: 1,
-      requirements: JSON.stringify(['test requirements', 'test requirements']),
-    })
-
-    expect(pet.id).toEqual(expect.any(String))
+  it('should be able to return error when org not exists', async () => {
+    await expect(async () => {
+      await sut.execute({
+        name: 'Pet name',
+        description: 'test description',
+        orgId: '',
+        energy: 4,
+        space: 'large',
+        size: 1,
+        requirements: JSON.stringify([
+          'test requirements',
+          'test requirements',
+        ]),
+      })
+    }).rejects.toBeInstanceOf(ResourceNotFound)
   })
 })
