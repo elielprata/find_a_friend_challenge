@@ -11,6 +11,7 @@ interface CreatePetUseCaseRequest {
   space: string
   size: number
   requirements: string
+  age: string
 }
 
 interface CreatePetUseCaseResponse {
@@ -31,6 +32,7 @@ export class CreatePetUseCase {
     space,
     size,
     requirements,
+    age,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
     const OrgExists = await this.orgsRepository.findById(orgId)
 
@@ -46,6 +48,7 @@ export class CreatePetUseCase {
       space,
       size,
       requirements,
+      age,
     })
 
     return { pet }

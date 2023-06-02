@@ -17,6 +17,7 @@ model Org {
   password_hash String
   postal_code   String
   address       String
+  city          String
   whats_app     String
   latitude      Decimal
   longitude     Decimal
@@ -35,6 +36,7 @@ model Pet {
   space        String
   size         Int
   requirements String
+  age          String
 
   org    Org    @relation(fields: [org_id], references: [id])
   org_id String

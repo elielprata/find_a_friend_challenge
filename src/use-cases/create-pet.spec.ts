@@ -22,6 +22,7 @@ describe('Register Use Case', () => {
       password_hash: 'test',
       postal_code: 'test',
       address: 'test',
+      city: 'test',
       whats_app: 'test',
       latitude: 65164,
       longitude: 65464,
@@ -37,6 +38,7 @@ describe('Register Use Case', () => {
       space: 'large',
       size: 1,
       requirements: JSON.stringify(['test requirements', 'test requirements']),
+      age: 'puppy',
     })
 
     expect(pet.id).toEqual(expect.any(String))
@@ -55,6 +57,7 @@ describe('Register Use Case', () => {
           'test requirements',
           'test requirements',
         ]),
+        age: 'puppy',
       })
     }).rejects.toBeInstanceOf(ResourceNotFound)
   })

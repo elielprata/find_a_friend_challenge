@@ -20,6 +20,7 @@ describe('Register Use Case', () => {
       space: 'large',
       size: 1,
       requirements: JSON.stringify(['test requirements', 'test requirements']),
+      age: 'puppy',
     })
   })
 
@@ -34,6 +35,8 @@ describe('Register Use Case', () => {
         energy: 4,
         space: 'large',
         size: 1,
+        requirements: ['test requirements', 'test requirements'],
+        age: 'puppy',
       }),
     )
   })
