@@ -2,17 +2,16 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryPetsRepository } from '@/repositories/in-memory/in-memory-pets-respository'
 import { GetAllPetsUseCase } from './get-all-pets'
-import { InMemoryOrgsRepository } from '@/repositories/in-memory/in-memory-orgs-repository'
+import { CityNotInformed } from './errors/city-not-informed'
 
 let petsRepository: InMemoryPetsRepository
-let orgsRepository: InMemoryOrgsRepository
 let sut: GetAllPetsUseCase
 
 describe('Register Use Case', () => {
   beforeEach(async () => {
     petsRepository = new InMemoryPetsRepository()
-    orgsRepository = new InMemoryOrgsRepository()
-    sut = new GetAllPetsUseCase(petsRepository, orgsRepository)
+
+    sut = new GetAllPetsUseCase(petsRepository)
 
     await petsRepository.create({
       name: 'Pet name',
@@ -62,6 +61,12 @@ describe('Register Use Case', () => {
       expect.objectContaining({ city: 'test' }),
       expect.objectContaining({ city: 'test' }),
     ])
+  })
+
+  it('should be able to return error when city data not exists', async () => {
+    expect(async () => {
+      await sut.execute({ city: '' })
+    }).rejects.toBeInstanceOf(CityNotInformed)
   })
 
   it('should be able to filter pets by their characteristics', async () => {
