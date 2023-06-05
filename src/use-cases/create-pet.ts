@@ -12,6 +12,8 @@ interface CreatePetUseCaseRequest {
   size: number
   requirements: string
   age: string
+  city: string
+  isAdopted?: boolean
 }
 
 interface CreatePetUseCaseResponse {
@@ -33,6 +35,8 @@ export class CreatePetUseCase {
     size,
     requirements,
     age,
+    city,
+    isAdopted = false,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
     const OrgExists = await this.orgsRepository.findById(orgId)
 
@@ -49,6 +53,8 @@ export class CreatePetUseCase {
       size,
       requirements,
       age,
+      city,
+      is_adopted: isAdopted,
     })
 
     return { pet }
