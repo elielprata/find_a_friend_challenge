@@ -1,6 +1,6 @@
-import { OrgsRepository } from '@/repositories/orgs-repository'
 import { PetsRepository } from '@/repositories/pets-repository'
 import { ResourceNotFound } from './errors/resource-not-found'
+import { CityNotInformed } from './errors/city-not-informed'
 
 interface GetAllPetsUseCaseRequest {
   city: string
@@ -10,12 +10,13 @@ interface GetAllPetsUseCaseRequest {
 }
 
 export class GetAllPetsUseCase {
-  constructor(
-    private petsRepository: PetsRepository,
-    private orgsRepository: OrgsRepository,
-  ) {}
+  constructor(private petsRepository: PetsRepository) {}
 
   async execute({ city, age, energy, size }: GetAllPetsUseCaseRequest) {
+    if (city.trim().length === 0) {
+      throw new CityNotInformed()
+    }
+
     const allPets = await this.petsRepository.findManyByCity(city)
 
     if (!allPets) {
