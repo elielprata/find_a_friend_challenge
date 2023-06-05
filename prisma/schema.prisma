@@ -17,7 +17,6 @@ model Org {
   password_hash String
   postal_code   String
   address       String
-  city          String
   whats_app     String
   latitude      Decimal
   longitude     Decimal
@@ -29,7 +28,7 @@ model Org {
 }
 
 model Pet {
-  id           String @id @default(uuid())
+  id           String  @id @default(uuid())
   name         String
   description  String
   energy       Int
@@ -37,6 +36,8 @@ model Pet {
   size         Int
   requirements String
   age          String
+  city         String
+  is_adopted   Boolean @default(false)
 
   org    Org    @relation(fields: [org_id], references: [id])
   org_id String
