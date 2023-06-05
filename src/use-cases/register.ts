@@ -12,7 +12,6 @@ interface RegisterUseCaseRequest {
   password: string
   postalCode: string
   address: string
-  city: string
   whatsApp: string
   latitude: number
   longitude: number
@@ -31,7 +30,6 @@ export class RegisterUseCase {
     password,
     postalCode,
     address,
-    city,
     whatsApp,
     latitude,
     longitude,
@@ -58,7 +56,6 @@ export class RegisterUseCase {
       password_hash,
       postal_code: postalCode,
       address,
-      city,
       whats_app: whatsApp,
       latitude,
       longitude,
