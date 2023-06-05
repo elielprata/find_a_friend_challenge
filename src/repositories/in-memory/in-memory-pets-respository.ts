@@ -16,7 +16,9 @@ export class InMemoryPetsRepository implements PetsRepository {
   }
 
   async findManyByCity(city: string): Promise<Pet[] | null> {
-    const pets = this.pets.filter((pet) => pet.energy > 1)
+    const pets = this.pets.filter(
+      (pet) => pet.city === city && pet.is_adopted === false,
+    )
 
     if (!pets) {
       return null
@@ -35,6 +37,9 @@ export class InMemoryPetsRepository implements PetsRepository {
       space: data.space,
       size: data.size,
       requirements: data.requirements,
+      age: data.age,
+      city: data.city,
+      is_adopted: data.is_adopted,
     }
 
     this.pets.push(pet)
