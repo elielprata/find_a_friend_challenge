@@ -36,13 +36,14 @@ export async function authenticate(
 
     const refreshToken = await reply.jwtSign(
       {
+        email: org.email,
         name: org.name,
       },
       { sign: { sub: org.id, expiresIn: '7d' } },
     )
 
     return reply
-      .setCookie('/refreshToken', refreshToken, {
+      .setCookie('refreshToken', refreshToken, {
         path: '/',
         secure: true,
         sameSite: true,
