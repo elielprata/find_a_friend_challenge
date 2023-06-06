@@ -28,6 +28,6 @@ describe('Authenticate (e2e)', () => {
       .send({ email: 'org1@test.com', password: '123456' })
       .expect(200)
 
-    expect(response).toEqual({ token: expect.any(String) })
+    expect(response.body).toEqual({ token: expect.any(String) })
   })
 })
