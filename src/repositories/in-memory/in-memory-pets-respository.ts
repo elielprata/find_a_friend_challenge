@@ -39,7 +39,7 @@ export class InMemoryPetsRepository implements PetsRepository {
       requirements: data.requirements,
       age: data.age,
       city: data.city,
-      is_adopted: data.is_adopted,
+      is_adopted: !!data.is_adopted,
     }
 
     this.pets.push(pet)
