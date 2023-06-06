@@ -3,12 +3,16 @@ import { PetsRepository } from '../pets-repository'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaPetsRepository implements PetsRepository {
-  findById(id: string): Promise<Pet | null> {
-    throw new Error('Method not implemented.')
+  async findById(id: string): Promise<Pet | null> {
+    const pet = await prisma.pet.findFirst({ where: { id } })
+
+    return pet
   }
 
-  findManyByCity(query: string): Promise<Pet[] | null> {
-    throw new Error('Method not implemented.')
+  async findManyByCity(query: any): Promise<Pet[] | null> {
+    const pets = await prisma.pet.findMany({ where: { city: query } })
+
+    return pets
   }
 
   async create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
